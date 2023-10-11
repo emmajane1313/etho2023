@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Vcr";
+  src: url("/fonts/Vcr.ttf");
+}
+
+@font-face {
+  font-family: "Gamer";
+  src: url("/fonts/Gamer.ttf");
+}
+
+@font-face {
+  font-family: "Network";
+  src: url("/fonts/Network.ttf");
+}
+
+@font-face {
+  font-family: "Dogica";
+  src: url("/fonts/Dogica.ttf");
+}
+
+body {
+  background-color: black;
+  background-image: url("https://chromadin.infura-ipfs.io/ipfs/QmWDqwGn7JgWzFsvUuC6pR7P58v6ab1npPueJ9Vfaez8iW");
+}
+
+#bar {
+  background-image: url("https://chromadin.infura-ipfs.io/ipfs/QmeQ2sdjGXxUCQHCnK6kHU2c9Do3rjs557hU87jGorAvTs");
+  background-size: cover;
+}
+
+#imageCover {
+  background-image: url("https://chromadin.infura-ipfs.io/ipfs/Qmak9Amfys6xPL1uk8juyBYtsELwNYPZ6pg4b5Yf6HbyS2");
+  background-size: cover;
+}
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(87, 124, 246, 0.6);
+}
+
+input[type="number"]::-webkit-inner-spin-button:focus,
+input[type="number"]::-webkit-outer-spin-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(87, 124, 246, 0.6);
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(87, 124, 246, 0.6);
+}
+
+input::-webkit-inner-spin-button:focus,
+input::-webkit-outer-spin-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(87, 124, 246, 0.6);
+}
