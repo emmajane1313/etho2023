@@ -7,8 +7,10 @@ import useSignIn from "../hooks/useSignIn";
 import { AiOutlineLoading } from "react-icons/ai";
 import Image from "next/legacy/image";
 import { INFURA_GATEWAY } from "../../../../lib/constants";
+import { useRouter } from "next/router";
 
 const Header: FunctionComponent = (): JSX.Element => {
+  const router = useRouter();
   const { openConnectModal } = useConnectModal();
   const { signInLoading, handleLensSignIn } = useSignIn();
   const connected = useSelector(
@@ -67,11 +69,15 @@ const Header: FunctionComponent = (): JSX.Element => {
           })}
         </div>
         <div
-          className="relative w-24 h-7 items-center justify-center flex text-white font-vcr cursor-pointer active:scale-95 border border-white rounded-sm text-sm"
+          className={`relative w-24 h-7 items-center justify-center flex font-vcr cursor-pointer active:scale-95 border border-white rounded-sm text-sm ${
+            connected && profile ? "text-black bg-white" : "text-white"
+          }`}
           onClick={
             !connected
               ? openConnectModal
-              : () => !signInLoading && handleLensSignIn()
+              : connected && !profile
+              ? () => !signInLoading && handleLensSignIn()
+              : () => router.push("/account")
           }
         >
           <div
@@ -81,8 +87,10 @@ const Header: FunctionComponent = (): JSX.Element => {
               <AiOutlineLoading />
             ) : !connected ? (
               "Connect"
+            ) : connected && profile ? (
+              "Lens"
             ) : (
-              connected && profile && "Lens"
+              "Account"
             )}
           </div>
         </div>

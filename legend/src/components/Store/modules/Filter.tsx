@@ -9,7 +9,7 @@ const Filter: FunctionComponent<FilterProps> = ({
   setSearchFilters,
 }): JSX.Element => {
   return (
-    <div className="relative w-96 h-fit flex items-center justify-center flex-col">
+    <div className="relative w-96 h-full flex items-center justify-center flex-col">
       <Bar title="Sort All Items" />
       <div className="relative w-full h-fit gap-6 flex flex-col bg-offWhite px-3 pb-3 pt-7">
         <div className="relative flex flex-col gap-2 justify-start items-start">

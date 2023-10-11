@@ -28,3 +28,13 @@ export type FilterProps = {
     };
   }) => void;
 };
+
+export type ItemProps = {
+  grant: {
+    id: string;
+    image: string;
+    profileImage: string;
+    name: string;
+    apparelName: string;
+  };
+};

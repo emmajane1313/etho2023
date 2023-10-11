@@ -2,10 +2,14 @@ import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import walletConnectedReducer from "./reducers/walletConnectedSlice";
 import lensProfileReducer from "./reducers/lensProfileSlice";
+import storeItemsReducer from "./reducers/storeItemsSlice";
+import publishedGrantsReducer from "./reducers/publishedGrantsSlice";
 
 const reducer = combineReducers({
   walletConnectedReducer,
   lensProfileReducer,
+  storeItemsReducer,
+  publishedGrantsReducer,
 });
 
 export const store = configureStore({
