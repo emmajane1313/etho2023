@@ -22,6 +22,7 @@ const Grant: FunctionComponent<GrantProps> = ({
   showComments,
   showLikes,
   showMirrors,
+  milestoneCovers,
 }) => {
   return (
     <div className="relative h-fit w-[30rem] border border-black flex flex-col items-center justify-center">
@@ -109,7 +110,15 @@ const Grant: FunctionComponent<GrantProps> = ({
                 </div>
                 <div className="relative w-full h-32 flex items-center justify-between flex-row gap-2">
                   <div className="relative h-full overflow-y-scroll w-full flex items-start justify-start p-1.5"></div>
-                  <div className="relative w-32 h-full border border-marron flex items-center justify-center rounded-sm"></div>
+                  <div className="relative w-40 h-full border border-marron flex items-center justify-center rounded-sm bg-offWhite">
+                    <Image
+                      src={`${INFURA_GATEWAY}/ipfs/${milestoneCovers?.[index]}`}
+                      layout="fill"
+                      className="rounded-sm w-full h-full"
+                      objectFit="cover"
+                      draggable={false}
+                    />
+                  </div>
                 </div>
                 <div className="relative flex flex-col items-start justify-start gap-4 gap-1.5 border border-white rounded-sm w-full h-fit p-2">
                   <div className="relative w-full h-fit flex items-center justify-between flex-row text-xxs text-white font-dog">

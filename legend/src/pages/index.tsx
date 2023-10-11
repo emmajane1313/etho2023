@@ -22,6 +22,7 @@ export default function Home() {
     showLikes,
     showMirrors,
     reactBox,
+    milestoneCovers,
   } = useGrants();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -65,6 +66,7 @@ export default function Home() {
           showComments={showComments}
           showLikes={showLikes}
           showMirrors={showMirrors}
+          milestoneCovers={milestoneCovers[0]}
         />
       </InfiniteScroll>
     </div>

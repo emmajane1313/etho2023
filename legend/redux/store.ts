@@ -5,6 +5,7 @@ import lensProfileReducer from "./reducers/lensProfileSlice";
 import storeItemsReducer from "./reducers/storeItemsSlice";
 import publishedGrantsReducer from "./reducers/publishedGrantsSlice";
 import cartItemsReducer from "./reducers/cartItemsSlice";
+import cartAnimReducer from "./reducers/cartAnimSlice";
 
 const reducer = combineReducers({
   walletConnectedReducer,
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   storeItemsReducer,
   publishedGrantsReducer,
   cartItemsReducer,
+  cartAnimReducer
 });
 
 export const store = configureStore({

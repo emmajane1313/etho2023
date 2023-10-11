@@ -4,6 +4,7 @@ import Bar from "@/components/Common/modules/Bar";
 import Image from "next/legacy/image";
 import { INFURA_GATEWAY } from "../../../../lib/constants";
 import { setCartItems } from "../../../../redux/reducers/cartItemsSlice";
+import { setCartAnim } from "../../../../redux/reducers/cartAnimSlice";
 
 const CollectItem: FunctionComponent<CollectItemProps> = ({
   index,
@@ -97,12 +98,7 @@ const CollectItem: FunctionComponent<CollectItemProps> = ({
         </div>
         <div
           className={`w-40 h-8 cursor-pointer rounded-sm cursor-pointer active:scale-95 border border-black flex items-center justify-center text-center font-gam text-xl ${
-            !cartItems?.includes({
-              ...collectChoice[index - 1],
-              id: id,
-              amount: item?.amount,
-              level: index,
-            })
+            !cartItems?.some((item) => item.id === id && item.level === index)
               ? "bg-lima"
               : "bg-viol"
           }`}
@@ -113,16 +109,16 @@ const CollectItem: FunctionComponent<CollectItemProps> = ({
               amount: item?.amount,
               level: index,
             };
-            const itemIndexLevel = cartItems.findIndex(
-              (cartItem) => cartItem.id === id && cartItem.level === index
-            );
-            if (itemIndexLevel > -1) {
+
+            if (
+              cartItems?.some((item) => item.id === id && item.level === index)
+            ) {
               router.push("/checkout");
             } else {
               const itemIndex = cartItems.findIndex(
                 (cartItem) => cartItem.id === id
               );
-              if (itemIndex > -1) {
+              if (cartItems?.some((item) => item.id === id)) {
                 const newCartItems = [...cartItems];
                 newCartItems.splice(itemIndex, 1);
                 dispatch(setCartItems([...newCartItems, newItem]));
@@ -130,14 +126,10 @@ const CollectItem: FunctionComponent<CollectItemProps> = ({
                 dispatch(setCartItems([...cartItems, newItem]));
               }
             }
+            dispatch(setCartAnim(true));
           }}
         >
-          {cartItems?.includes({
-            ...collectChoice[index - 1],
-            id: id,
-            amount: item?.amount,
-            level: index,
-          })
+          {cartItems?.some((item) => item.id === id && item.level === index)
             ? "Go to Cart"
             : "Choose Level"}
         </div>

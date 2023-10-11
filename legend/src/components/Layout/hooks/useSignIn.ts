@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import generateChallenge from "../../../../graphql/queries/challenge";
 import { useAccount, useSignMessage } from "wagmi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setWalletConnected } from "../../../../redux/reducers/walletConnectedSlice";
 import authenticate from "../../../../graphql/mutations/authenticate";
 import {
@@ -15,6 +15,8 @@ import { setLensConnected } from "../../../../redux/reducers/lensProfileSlice";
 import getProfiles from "../../../../graphql/queries/profiles";
 import { Profile } from "../../../../graphql/generated";
 import createProfile from "../../../../graphql/mutations/createProfile";
+import { RootState } from "../../../../redux/store";
+import { setCartAnim } from "../../../../redux/reducers/cartAnimSlice";
 
 const useSignIn = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,9 @@ const useSignIn = () => {
   const [createProfileLoading, setCreateProfileLoading] =
     useState<boolean>(false);
   const { address, isConnected } = useAccount();
+  const cartAnim = useSelector(
+    (state: RootState) => state.app.cartAnimReducer.value
+  );
 
   const createProfileWithHandle = async () => {
     setCreateProfileLoading(true);
@@ -122,6 +127,14 @@ const useSignIn = () => {
 
     handleAuthentication();
   }, [isConnected]);
+
+  useEffect(() => {
+    if (cartAnim) {
+      setTimeout(() => {
+        dispatch(setCartAnim(false));
+      }, 3000);
+    }
+  }, [cartAnim]);
 
   return {
     handleLensSignIn,

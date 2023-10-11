@@ -19,6 +19,10 @@ const Header: FunctionComponent = (): JSX.Element => {
   const profile = useSelector(
     (state: RootState) => state.app.lensProfileReducer.profile
   );
+  const cartAnim = useSelector(
+    (state: RootState) => state.app.cartAnimReducer.value
+  );
+
   return (
     <div className="relative bg-black h-12 p-2 justify-center items-center flex flex-row w-full h-fit">
       <Link
@@ -94,7 +98,10 @@ const Header: FunctionComponent = (): JSX.Element => {
             )}
           </div>
         </div>
-        <div className="relative w-5 h-4 flex items-center justify-center cursor-pointer active:scale-95">
+        <div
+          className="relative w-5 h-4 flex items-center justify-center cursor-pointer active:scale-95"
+          id={cartAnim ? "cart" : ""}
+        >
           <Image
             src={`${INFURA_GATEWAY}/ipfs/QmcDmX2FmwjrhVDLpNii6NdZ4KisoPLMjpRUheB6icqZcV`}
             layout="fill"

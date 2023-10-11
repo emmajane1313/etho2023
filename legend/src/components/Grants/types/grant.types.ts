@@ -6,6 +6,7 @@ import { NextRouter } from "next/router";
 export type GrantProps = {
   publication: ExplorePublication;
   imageIndex: number[];
+  milestoneCovers: string[];
   setImageIndex: (e: number[]) => void;
   index: number;
   disputeGrant: (index: number, id: number) => Promise<void>;

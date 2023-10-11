@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MILESTONE_COVERS } from "../../../../lib/constants";
+import lodash from "lodash";
 
 const useGrants = () => {
   const [imageIndex, setImageIndex] = useState<number[]>([0]);
+  const [milestoneCovers, setMilestoneCovers] = useState<string[][]>([]);
   const [reactBox, setReactBox] = useState<{
     comment: string;
     like: string;
@@ -106,6 +109,11 @@ const useGrants = () => {
     }
   };
 
+  useEffect(() => {
+    const shuffled = lodash.shuffle(MILESTONE_COVERS);
+    setMilestoneCovers([shuffled.slice(0, 3)]);
+  }, []);
+
   return {
     imageIndex,
     setImageIndex,
@@ -119,6 +127,7 @@ const useGrants = () => {
     showLikes,
     showMirrors,
     reactBox,
+    milestoneCovers,
   };
 };
 
