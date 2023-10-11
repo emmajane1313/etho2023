@@ -29,7 +29,7 @@ const Header: FunctionComponent = (): JSX.Element => {
         {[
           ["storefront", "store", "#F8F87F"],
           ["view grants", "", "#7BF678"],
-          ["launch grant", "/launch", "#D07BF7"],
+          ["launch grant", "launch", "#D07BF7"],
           ["web3 public goods", "web3", "#59ABF7"],
         ].map((item: string[], index: number) => {
           return (
