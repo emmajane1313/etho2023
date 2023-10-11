@@ -37,6 +37,10 @@ body {
   background-size: cover;
 }
 
+#grant {
+  background-image: url("https://chromadin.infura-ipfs.io/ipfs/QmSGW3JvdMuWFtNqk7QHYTfWbDcixT4MW3KGsqPdUJYxoJ");
+  background-size: contain;
+}
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -69,4 +73,21 @@ input::-webkit-inner-spin-button:focus,
 input::-webkit-outer-spin-button:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(87, 124, 246, 0.6);
+}
+
+#milestone::-webkit-scrollbar {
+  width: 3px;
+  opacity: 1; /* Initially hide the scrollbar */
+}
+
+#milestone:hover::-webkit-scrollbar {
+  opacity: 1; /* Show the scrollbar on hover */
+}
+
+#milestone::-webkit-scrollbar-track {
+  background-color: #222222;
+}
+
+#milestone::-webkit-scrollbar-thumb {
+  background-color: #d49e78;
 }

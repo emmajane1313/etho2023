@@ -19,7 +19,10 @@ const config: Config = {
         zana: "#FBDB86",
         vela: "#71D526",
         mar: "#1A08F1",
-        suelo: "#0091FF"
+        suelo: "#0091FF",
+        marron: "#D49E78",
+        cafe: "#222222",
+        lima: "#CAED00"
       },
       fontFamily: {
         dog: "Dogica",

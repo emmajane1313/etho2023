@@ -10,11 +10,23 @@ const Grant: FunctionComponent<GrantProps> = ({
   imageIndex,
   setImageIndex,
   index,
+  disputeGrant,
+  collectChoice,
+  commentGrant,
+  likeGrant,
+  mirrorGrant,
+  setCollectChoice,
+  cartItems,
+  dispatch,
+  router,
+  showComments,
+  showLikes,
+  showMirrors,
 }) => {
   return (
     <div className="relative h-fit w-[30rem] border border-black flex flex-col items-center justify-center">
       <Bar title={publication?.metadata?.marketplace?.name!} />
-      <div className="relative w-full h-fit flex flex-col gap-8" id="grantBg">
+      <div className="relative w-full h-fit flex flex-col gap-8" id="grant">
         <div className="p-5 relative w-full h-fit flex items-center justify-center flex-row gap-5">
           <div className="relative w-full h-fit flex break-words font-vcr text-black p-2 justify-start items-center rounded-sm border border-black bg-offWhite p-2 flex-col gap-4">
             <div className="relative w-full h-40 flex items-center justify-start gap-6">
@@ -27,10 +39,13 @@ const Grant: FunctionComponent<GrantProps> = ({
                   "QmVFm5onDqzKCV6v9XbGTQirXsWFmRgihsYcXVBbLMxneL",
                   "QmRsAM1oJfiv1Py92uoYk7VMdrnPfWDsgH3Y2tPWVDqxHw",
                 ].map((image: string, index: number) => {
+                  const functions = [likeGrant, commentGrant, mirrorGrant];
+                  const show = [showLikes, showComments, showMirrors];
                   return (
                     <div
                       key={index}
                       className="relative w-fit h-fit flex flex-row items-center justify-center gap-3 font-vcr text-black text-center"
+                      onClick={() => functions[index](publication?.id)}
                     >
                       <div className="relative w-4 h-3 flex items-center justify-center cursor-pointer active:scale-95">
                         <Image
@@ -39,7 +54,10 @@ const Grant: FunctionComponent<GrantProps> = ({
                           draggable={false}
                         />
                       </div>
-                      <div className="relative w-fit h-fit items-center justify-center flex">
+                      <div
+                        className="relative w-fit h-fit items-center justify-center flex cursor-pointer"
+                        onClick={() => show[index](publication?.id)}
+                      >
                         2K
                       </div>
                     </div>
@@ -120,12 +138,40 @@ const Grant: FunctionComponent<GrantProps> = ({
             collect grant
           </div>
           <div className="relative w-full h-fit bg-offWhite p-2 rounded-sm border border-black overflow-x-hidden">
-            <div className="relative w-fit h-fit flex flex-row">
+            <div className="relative w-fit h-fit flex flex-row gap-2 pb-2">
               {[
-                ...Array.from({ length: 7 }).slice(imageIndex[index]),
-                ...Array.from({ length: 7 }).slice(0, imageIndex[index]),
+                ...[
+                  { level: 1 },
+                  { level: 2 },
+                  { level: 3 },
+                  { level: 4 },
+                  { level: 5 },
+                  { level: 6 },
+                  { level: 7 },
+                ].slice(imageIndex[index]),
+                ...[
+                  { level: 1 },
+                  { level: 2 },
+                  { level: 3 },
+                  { level: 4 },
+                  { level: 5 },
+                  { level: 6 },
+                  { level: 7 },
+                ].slice(0, imageIndex[index]),
               ].map((_, index: number) => {
-                return <CollectItem key={index} index={index} />;
+                return (
+                  <CollectItem
+                    key={index}
+                    index={_.level}
+                    collectChoice={collectChoice}
+                    setCollectChoice={setCollectChoice}
+                    dispatch={dispatch}
+                    cartItems={cartItems}
+                    // item={}
+                    id={publication?.id}
+                    router={router}
+                  />
+                );
               })}
             </div>
             <div className="relative w-12 h-7 flex flex-row bg-white border border-black rounded-x-xl items-center justify-between">
