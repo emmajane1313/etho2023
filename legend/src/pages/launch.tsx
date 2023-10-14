@@ -1,8 +1,7 @@
 import useLaunch from "@/components/Launch/hooks/useLaunch";
 import Deploy from "@/components/Launch/modules/Deploy";
-import Grantees from "@/components/Launch/modules/Grantees";
-import Information from "@/components/Launch/modules/Information";
-import Milestone from "@/components/Launch/modules/Milestone";
+import LaunchSwitch from "@/components/Launch/modules/LaunchSwitch";
+import { useRouter } from "next/router";
 
 export default function Launch() {
   const {
@@ -26,51 +25,49 @@ export default function Launch() {
     handleClaimMilestone,
     activateMilestoneLoading,
     claimMilestoneLoading,
+    grantStage,
+    setGrantStage,
+    grantStageLoading,
+    handleShuffleCollectionLevels,
+    grantId
   } = useLaunch();
+  const router = useRouter();
   return (
-    <div className="relative w-full h-full flex flex-row items-center justify-center p-5 gap-10">
-      <Information
-        postInformation={postInformation}
-        setPostInformation={setPostInformation}
-        imageLoading={imageLoading}
-        handleImageUpload={handleImageUpload}
-      />
-      <div className="relative w-full h-full flex flex-col gap-3">
-        <div className="relative flex flex-row w-full h-fit gap-3">
-          {Array.from({ length: 3 }).map((_, index: number) => {
-            return (
-              <Milestone
-                key={index}
-                index={index}
-                dateOpen={dateOpen}
-                setDateOpen={setDateOpen}
-                handleDateSelect={handleDateSelect}
-                selectedDate={selectedDate}
-                inputDateValue={inputDateValue}
-                handleInputDateChange={handleInputDateChange}
-                handleActivateMilestone={handleActivateMilestone}
-                handleClaimMilestone={handleClaimMilestone}
-                activateMilestoneLoading={activateMilestoneLoading}
-                claimMilestoneLoading={claimMilestoneLoading}
-                postInformation={postInformation}
-                setPostInformation={setPostInformation}
-              />
-            );
-          })}
-        </div>
-        <Grantees
+    <div className="relative w-full h-full flex items-center justify-center p-5 overflow-y-hidden">
+      <div className="relative w-3/5 h-4/5 items-center justify-center gap-4 flex">
+        <LaunchSwitch
+          dateOpen={dateOpen}
+          setDateOpen={setDateOpen}
+          handleDateSelect={handleDateSelect}
+          selectedDate={selectedDate}
+          inputDateValue={inputDateValue}
+          handleInputDateChange={handleInputDateChange}
+          handleActivateMilestone={handleActivateMilestone}
+          handleClaimMilestone={handleClaimMilestone}
+          activateMilestoneLoading={activateMilestoneLoading}
+          claimMilestoneLoading={claimMilestoneLoading}
           postInformation={postInformation}
           setPostInformation={setPostInformation}
-        />
-        <Deploy
+          grantStage={grantStage}
+          imageLoading={imageLoading}
+          handleImageUpload={handleImageUpload}
           postLoading={postLoading}
           registerLoading={registerLoading}
           grantPosted={grantPosted}
           grantRegistered={grantRegistered}
           handleRegisterGrant={handleRegisterGrant}
           handlePostGrant={handlePostGrant}
+          handleShuffleCollectionLevels={handleShuffleCollectionLevels}
+          grantStageLoading={grantStageLoading}
+          router={router}
+          id={grantId}
         />
       </div>
+      <Deploy
+        grantStageLoading={grantStageLoading}
+        setGrantStage={setGrantStage}
+        grantStage={grantStage}
+      />
     </div>
   );
 }

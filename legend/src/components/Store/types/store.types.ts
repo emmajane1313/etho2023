@@ -4,10 +4,6 @@ export type FilterProps = {
     timestamp: string;
     grant: string;
     profile: string;
-    referral: {
-      min: number;
-      max: number;
-    };
     amount: {
       min: number;
       max: number;
@@ -18,10 +14,6 @@ export type FilterProps = {
     timestamp: string;
     grant: string;
     profile: string;
-    referral: {
-      min: number;
-      max: number;
-    };
     amount: {
       min: number;
       max: number;

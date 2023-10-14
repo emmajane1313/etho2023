@@ -6,10 +6,7 @@ const useStore = () => {
     timestamp: string;
     grant: string;
     profile: string;
-    referral: {
-      min: number;
-      max: number;
-    };
+
     amount: {
       min: number;
       max: number;
@@ -19,10 +16,6 @@ const useStore = () => {
     timestamp: "latest",
     grant: "",
     profile: "",
-    referral: {
-      min: 1000,
-      max: 15000,
-    },
     amount: {
       min: 10,
       max: 50,

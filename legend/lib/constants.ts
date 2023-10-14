@@ -16,3 +16,47 @@ export const MILESTONE_COVERS: string[] = [
   "QmNxit6Ut6opyPpZeugTFhCbtrf5tLFmJToBRBKUEJfmPL",
   "QmS8Cf5fMQ7rZ5cdrtBmJST5ejTkDZtfKYuqSyEB2QQhRU",
 ];
+
+export const LEVEL_INFO_ABI: [
+  {
+    type: string;
+    components: {
+      name: string;
+      type: string;
+      baseType: string;
+      indexed: boolean;
+    }[];
+  }
+] = [
+  {
+    type: "tuple[]",
+    components: [
+      {
+        name: "collectionIds",
+        type: "uint256[]",
+        baseType: "uint256[]",
+        indexed: false,
+      },
+      {
+        name: "amounts",
+        type: "uint256[]",
+        baseType: "uint256[]",
+        indexed: false,
+      },
+      {
+        name: "indexes",
+        type: "uint256[]",
+        baseType: "uint256[]",
+        indexed: false,
+      },
+      {
+        name: "totalPrice",
+        type: "uint256",
+        baseType: "uint256",
+        indexed: false,
+      },
+    ],
+  },
+];
+
+export const GRANT_REGISTER_CONTRACT: `0x${string}` = "0x"

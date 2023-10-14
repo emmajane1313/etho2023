@@ -108,9 +108,9 @@ const Grant: FunctionComponent<GrantProps> = ({
                 <div className="relative w-fit h-fit flex items-center justify-start text-sm">
                   {`Milestone ${index + 1}`}
                 </div>
-                <div className="relative w-full h-32 flex items-center justify-between flex-row gap-2">
+                <div className="relative w-full h-72 flex items-center justify-between flex-row gap-2">
                   <div className="relative h-full overflow-y-scroll w-full flex items-start justify-start p-1.5"></div>
-                  <div className="relative w-40 h-full border border-marron flex items-center justify-center rounded-sm bg-offWhite">
+                  <div className="relative w-60 h-full border border-marron flex items-center justify-center rounded-sm bg-virg">
                     <Image
                       src={`${INFURA_GATEWAY}/ipfs/${milestoneCovers?.[index]}`}
                       layout="fill"
@@ -120,7 +120,7 @@ const Grant: FunctionComponent<GrantProps> = ({
                     />
                   </div>
                 </div>
-                <div className="relative flex flex-col items-start justify-start gap-4 gap-1.5 border border-white rounded-sm w-full h-fit p-2">
+                <div className="relative flex flex-col items-start justify-start gap-8 border border-white rounded-sm w-full h-fit p-2">
                   <div className="relative w-full h-fit flex items-center justify-between flex-row text-xxs text-white font-dog">
                     <div className="relative w-fit h-fit flex flex-col gap-1 items-start justify-start">
                       <div>Amount:</div>
@@ -131,9 +131,11 @@ const Grant: FunctionComponent<GrantProps> = ({
                       <div>{new Date().toDateString()}</div>
                     </div>
                   </div>
-                  <div className="relative w-full h-fit items-start justify-start text-white text-xxs font-dog flex flex-col gap-1">
-                    <div className="">Milestone Contestation Period</div>
-                    <div className="relative w-full h-5 rounded-lg border border-white bg-amar/60 text-black text-center flex items-center justify-center">
+                  <div className="relative w-full h-fit items-center justify-start text-white text-xxs font-dog flex flex-col gap-4">
+                    <div className="relative w-fit h-fit break-words items-center justify-center text-center flex">
+                      Milestone Contestation Period
+                    </div>
+                    <div className="relative w-full h-6 rounded-lg border border-white bg-amar/60 text-black text-center flex items-center justify-center">
                       Not Completed
                     </div>
                   </div>
@@ -146,8 +148,8 @@ const Grant: FunctionComponent<GrantProps> = ({
           <div className="relative w-fit px-2 py-1 h-12 text-center flex items-center justify-center bg-lima border border-black font-gam uppercase text-6xl text-mar">
             collect grant
           </div>
-          <div className="relative w-full h-fit bg-offWhite p-2 rounded-sm border border-black overflow-x-hidden">
-            <div className="relative w-fit h-fit flex flex-row gap-2 pb-2">
+          <div className="relative w-full h-fit bg-offWhite p-2 rounded-sm border border-black overflow-x-hidden items-center justify-center flex flex-col">
+            <div className="relative w-fit h-fit flex flex-row gap-2 pb-2 items-center justify-center">
               {[
                 ...[
                   { level: 1 },

@@ -12,7 +12,7 @@ const Information: FunctionComponent<InformationProps> = ({
   setPostInformation,
 }): JSX.Element => {
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-start">
+    <div className="relative w-fit h-fit flex flex-col items-center justify-start">
       <Bar title="Grant Preview" />
       <div className="relative bg-offWhite w-full h-fit flex flex-col items-center justify-start p-3 gap-6 border border-black rounded-b-sm">
         <div className="relative flex flex-row items-center justify-center gap-5 w-full h-fit">
@@ -140,25 +140,6 @@ const Information: FunctionComponent<InformationProps> = ({
                 }
                 value={postInformation?.experience}
               ></textarea>
-            </div>
-          </div>
-          <div className="relative flex flex-col justify-start items-start w-full h-full font-dog text-black text-xs gap-2">
-            <div className="relative w-fit h-fit flex justify-start items-start">
-              Referral
-            </div>
-            <div className="relative w-full h-fit">
-              <input
-                className="bg-offWhite text-black font-dog flex items-center justify-center text-center border border-black rounded-sm h-8 w-full"
-                placeholder="10"
-                onChange={(e) =>
-                  setPostInformation({
-                    ...postInformation,
-                    referral: Number(e.target.value),
-                  })
-                }
-                type="number"
-                value={postInformation?.referral}
-              />
             </div>
           </div>
         </div>

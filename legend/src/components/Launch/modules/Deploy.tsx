@@ -3,57 +3,45 @@ import { DeployProps } from "../types/launch.types";
 import { AiOutlineLoading } from "react-icons/ai";
 
 const Deploy: FunctionComponent<DeployProps> = ({
-  handlePostGrant,
-  handleRegisterGrant,
-  registerLoading,
-  grantPosted,
-  grantRegistered,
-  postLoading,
+  grantStage,
+  setGrantStage,
+  grantStageLoading,
 }): JSX.Element => {
   return (
-    <div className="relative w-full h-fit flex flex-row items-center justify-end gap-2 p-2 text-xxs">
+    <div className="absolute w-fit h-fit flex flex-row items-center justify-end gap-2 p-2 text-xxs bottom-2 right-3">
       <div
-        className={`relative w-40 h-8 bg-viol border border-white rounded-md items-center justify-center flex px-1.5 ${
-          grantRegistered ? "opacity-70" : "cursor-pointer active:scale-95"
+        className={`relative w-fit h-8 text-white font-dog items-center px-1.5 justify-center flex bg-mar border border-white rounded-md ${
+          grantStage === 0 ? "opacity-60" : "cursor-pointer active:scale-95"
         }`}
+        onClick={() =>
+          grantStage !== 0 &&
+          !grantStageLoading &&
+          setGrantStage(grantStage - 1)
+        }
       >
-        <div
-          className={`relative w-fit h-fit text-center font-dog text-white ${
-            registerLoading && "animate-spin"
-          }`}
-          onClick={() =>
-            !grantRegistered && !registerLoading && handleRegisterGrant()
-          }
-        >
-          {registerLoading ? (
-            <AiOutlineLoading size={15} color={"white"} />
-          ) : (
-            "Register Grant"
-          )}
-        </div>
-      </div>
-      <div className="relative w-fit h-8 text-white font-dog items-center px-1.5 justify-center flex bg-mar border border-white rounded-md">
-        {`>>>`}
+        {`<<<`}
       </div>
       <div
         className={`relative w-40 h-8 bg-viol border border-white rounded-md items-center justify-center px-1.5 flex ${
-          !grantRegistered || grantPosted
-            ? "opacity-70"
+          grantStage === 5 || grantStageLoading
+            ? "opacity-60"
             : "cursor-pointer active:scale-95"
         }`}
+        onClick={() =>
+          grantStage !== 5 &&
+          !grantStageLoading &&
+          setGrantStage(grantStage + 1)
+        }
       >
         <div
           className={`relative w-fit h-fit text-center font-dog text-white ${
-            postLoading && "animate-spin"
+            grantStageLoading && "animate-spin"
           }`}
-          onClick={() =>
-            !grantPosted && !postLoading && grantRegistered && handlePostGrant()
-          }
         >
-          {postLoading ? (
-            <AiOutlineLoading size={15} color={"white"} />
+          {grantStageLoading ? (
+            <AiOutlineLoading size={15} color="white" />
           ) : (
-            "Post Grant"
+            "Continue"
           )}
         </div>
       </div>

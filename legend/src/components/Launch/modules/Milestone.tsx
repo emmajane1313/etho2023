@@ -31,13 +31,13 @@ const Milestone: FunctionComponent<MilestoneProps> = ({
   });
 
   return (
-    <div className="relative w-full h-fit bg-offWhite flex flex-col">
+    <div className="relative w-fit h-full bg-offWhite flex flex-col rounded-b-sm">
       <Bar title={`Milestone ${index + 1}`} />
-      <div className="relative p-2 flex flex-col items-center justify-center gap-4 border border-black rounded-b-sm">
-        <div className="relative w-full h-40 border border-black rounded-sm items-center justify-center flex">
+      <div className="relative p-2 flex w-fit flex-col items-center justify-center gap-4 border border-black rounded-b-sm h-full">
+        <div className="relative w-full h-full border border-black rounded-sm items-center justify-center flex">
           <textarea
             className="bg-quemo break-words p-2 text-amar font-dog text-xxs flex w-full h-full rounded-sm"
-            placeholder="milestone description..."
+            placeholder="Milestone Description..."
             style={{
               resize: "none",
             }}
@@ -53,14 +53,14 @@ const Milestone: FunctionComponent<MilestoneProps> = ({
             value={postInformation?.milestones[index]?.description}
           ></textarea>
         </div>
-        <div className="relative flex flex-row w-full h-fit items-center justify-center gap-2">
+        <div className="relative flex flex-row w-fit h-fit items-end justify-between gap-2">
           <div className="relative flex flex-col items-start justify-center gap-1 w-fit h-fit">
             <div className="relative font-dog text-black text-xxs items-start justify-center w-fit h-fit">
-              {`Amt$:`}
+              {`Amt Requested ($):`}
             </div>
             <input
               type="number"
-              className="w-12 h-8 bg-quemo text-xxs text-amar font-dog p-1 flex items-center justify-center"
+              className="w-16 h-8 bg-quemo text-xxs text-amar font-dog p-1 flex items-center justify-center"
               onChange={(e) => {
                 const milestones = [...postInformation?.milestones];
                 milestones[index].amount = Number(e.target.value);
@@ -73,7 +73,7 @@ const Milestone: FunctionComponent<MilestoneProps> = ({
               value={postInformation?.milestones[index]?.amount}
             />
           </div>
-          <div className="relative flex flex-col items-start justify-center gap-1 w-fit h-fit">
+          <div className="relative flex flex-col items-start justify-end gap-1 w-fit h-fit">
             <div className="relative font-dog text-black text-xxs items-start justify-center w-fit h-fit">
               Submit By:
             </div>
@@ -146,7 +146,7 @@ const Milestone: FunctionComponent<MilestoneProps> = ({
             </div>
           </div>
         </div>
-        <div className="relative w-fit h-fit flex flex-col gap-2">
+        {/* <div className="relative w-fit h-fit flex flex-col gap-2">
           <div className="relative w-fit h-fit text-black font-dog text-xs">
             Activate Milestone Claim Period
           </div>
@@ -179,7 +179,7 @@ const Milestone: FunctionComponent<MilestoneProps> = ({
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -131,46 +131,6 @@ const Filter: FunctionComponent<FilterProps> = ({
         </div>
         <div className="relative flex flex-col gap-2 justify-start items-start">
           <div className="relative w-fit h-fit font-dog text-black text-xxs">
-            Referral Fee
-          </div>
-          <div className="relative flex flex-row gap-1.5 items-center justify-start text-xxs">
-            <input
-              className="bg-quemo font-dog flex items-center justify-center text-center border border-black rounded-sm h-8 w-20 text-amar"
-              placeholder="5000"
-              onChange={(e) =>
-                setSearchFilters({
-                  ...searchFilters,
-                  referral: {
-                    ...searchFilters?.referral,
-                    min: Number(e.target.value),
-                  },
-                })
-              }
-              type="number"
-              value={searchFilters?.referral?.min}
-            />
-            <div className="relative w-fit h-8 text-white font-dog items-center px-1.5 justify-center flex bg-mar border border-white rounded-md">
-              {`>>>`}
-            </div>
-            <input
-              className="bg-quemo font-dog flex items-center justify-center text-center border border-black rounded-sm h-8 w-20 text-amar"
-              placeholder="15000"
-              onChange={(e) =>
-                setSearchFilters({
-                  ...searchFilters,
-                  referral: {
-                    ...searchFilters?.referral,
-                    max: Number(e.target.value),
-                  },
-                })
-              }
-              type="number"
-              value={searchFilters?.referral?.max}
-            />
-          </div>
-        </div>
-        <div className="relative flex flex-col gap-2 justify-start items-start">
-          <div className="relative w-fit h-fit font-dog text-black text-xxs">
             Total Grant Funded Amount
           </div>
           <div className="relative flex flex-row gap-1.5 items-center justify-start text-xxs">

@@ -20,6 +20,7 @@ contract GrantOpenAction is HubRestricted, IPublicationActionModule {
     uint256 designerPercent;
     uint256 fulfillerPercent;
     uint256 _orderSupply;
+    uint256 BPS_MAX = 10000;
 
     error CurrencyNotWhitelisted();
 
@@ -85,13 +86,10 @@ contract GrantOpenAction is HubRestricted, IPublicationActionModule {
     function initializePublicationAction(
         uint256 profileId,
         uint256 pubId,
-        address /* transactionExecutor */,
+        address granteeReceiver /* transactionExecutor */,
         bytes calldata data
     ) external override onlyHub returns (bytes memory) {
-        (LevelInfo[6] memory _levelInfo, address granteeReceiver) = abi.decode(
-            data,
-            (LevelInfo[6], address)
-        );
+        LevelInfo[6] memory _levelInfo = abi.decode(data, (LevelInfo[6]));
 
         _grantLevelInfo[profileId][pubId][0] = _levelInfo[0];
         _grantLevelInfo[profileId][pubId][1] = _levelInfo[1];

@@ -13,16 +13,6 @@ library GrantRegisterLibrary {
         uint256 pubId;
         uint256 profileId;
     }
-
-    struct GranteeMetrics {
-        uint256 profileCreated;
-        uint256 followerCount;
-        uint256 followingCount;
-        uint256 totalLikes;
-        uint256 totalCollects;
-        uint256 totalMirrors;
-        uint256 totalComments;
-    }
 }
 
 contract GrantRegister is OwnableUpgradeable {
@@ -85,8 +75,7 @@ contract GrantRegister is OwnableUpgradeable {
     );
 
     function registerGrant(
-        GrantRegisterLibrary.CreateGrant memory _createGrantParams,
-        GrantRegisterLibrary.GranteeMetrics memory _granteeMetricsParams
+        GrantRegisterLibrary.CreateGrant memory _createGrantParams
     ) public {
         if (
             _createGrantParams.granteeAddresses.length !=
@@ -94,8 +83,6 @@ contract GrantRegister is OwnableUpgradeable {
         ) {
             revert invalidLengths();
         }
-
-        _userMetricCheck(_granteeMetricsParams);
 
         bytes32 _grantIdentifier = keccak256(
             abi.encodePacked(
@@ -297,21 +284,5 @@ contract GrantRegister is OwnableUpgradeable {
             _granteeToMilestoneAmount[_addressToIdentifier[_granteeAddress]][
                 _pubId
             ][_granteeAddress][_milestoneId];
-    }
-
-    function _userMetricCheck(
-        GrantRegisterLibrary.GranteeMetrics memory _metrics
-    ) internal view {
-        if (
-            block.timestamp >= _metrics.profileCreated + 1 days ||
-            _metrics.followerCount < 100 ||
-            _metrics.followingCount < 50 ||
-            _metrics.totalLikes < 1000 ||
-            _metrics.totalCollects < 100 ||
-            _metrics.totalMirrors < 10 ||
-            _metrics.totalComments < 20
-        ) {
-            revert invalidLensMetrics();
-        }
     }
 }
