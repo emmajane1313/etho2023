@@ -2,12 +2,13 @@ import { FetchResult } from "@apollo/client";
 import { authClient } from "../../lib/lens/client";
 import {
   CreateProfileWithHandleDocument,
+  CreateProfileWithHandleMutation,
   CreateProfileWithHandleRequest,
 } from "../generated";
 
 const createProfile = async (
   request: CreateProfileWithHandleRequest
-): Promise<FetchResult<any, Record<string, any>, Record<string, any>>> => {
+): Promise<FetchResult<CreateProfileWithHandleMutation>>=> {
   return authClient.mutate({
     mutation: CreateProfileWithHandleDocument,
     variables: {

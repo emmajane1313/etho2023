@@ -6,6 +6,8 @@ import storeItemsReducer from "./reducers/storeItemsSlice";
 import publishedGrantsReducer from "./reducers/publishedGrantsSlice";
 import cartItemsReducer from "./reducers/cartItemsSlice";
 import cartAnimReducer from "./reducers/cartAnimSlice";
+import interactionsCountReducer from "./reducers/interactionsCountSlice";
+import reactBoxReducer from "./reducers/reactBoxSlice";
 
 const reducer = combineReducers({
   walletConnectedReducer,
@@ -13,7 +15,9 @@ const reducer = combineReducers({
   storeItemsReducer,
   publishedGrantsReducer,
   cartItemsReducer,
-  cartAnimReducer
+  cartAnimReducer,
+  interactionsCountReducer,
+  reactBoxReducer,
 });
 
 export const store = configureStore({

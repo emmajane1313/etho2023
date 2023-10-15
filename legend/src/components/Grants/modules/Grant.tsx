@@ -4,6 +4,7 @@ import { INFURA_GATEWAY } from "../../../../lib/constants";
 import CollectItem from "./CollectItem";
 import Bar from "@/components/Common/modules/Bar";
 import { GrantProps } from "../types/grant.types";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const Grant: FunctionComponent<GrantProps> = ({
   publication,
@@ -15,6 +16,7 @@ const Grant: FunctionComponent<GrantProps> = ({
   commentGrant,
   likeGrant,
   mirrorGrant,
+  quoteGrant,
   setCollectChoice,
   cartItems,
   dispatch,
@@ -22,7 +24,8 @@ const Grant: FunctionComponent<GrantProps> = ({
   showComments,
   showLikes,
   showMirrors,
-  milestoneCovers,
+  showQuotes,
+  interactionsLoading,
 }) => {
   return (
     <div className="relative h-fit w-[30rem] border border-black flex flex-col items-center justify-center">
@@ -39,22 +42,47 @@ const Grant: FunctionComponent<GrantProps> = ({
                   "QmRQVbnK1VajkBzjz9w2zFSSbC9fAdKRo7m53VuvhyvHa4",
                   "QmVFm5onDqzKCV6v9XbGTQirXsWFmRgihsYcXVBbLMxneL",
                   "QmRsAM1oJfiv1Py92uoYk7VMdrnPfWDsgH3Y2tPWVDqxHw",
+                  "",
                 ].map((image: string, index: number) => {
-                  const functions = [likeGrant, commentGrant, mirrorGrant];
-                  const show = [showLikes, showComments, showMirrors];
+                  const functions = [
+                    likeGrant,
+                    commentGrant,
+                    mirrorGrant,
+                    quoteGrant,
+                  ];
+                  const show = [
+                    showLikes,
+                    showComments,
+                    showMirrors,
+                    showQuotes,
+                  ];
+                  const loaders = [
+                    interactionsLoading.like,
+                    interactionsLoading.comment,
+                    interactionsLoading.mirror,
+                    interactionsLoading.quote,
+                  ];
                   return (
                     <div
                       key={index}
                       className="relative w-fit h-fit flex flex-row items-center justify-center gap-3 font-vcr text-black text-center"
-                      onClick={() => functions[index](publication?.id)}
+                      onClick={() =>
+                        !loaders[index] && functions[index](publication?.id)
+                      }
                     >
-                      <div className="relative w-4 h-3 flex items-center justify-center cursor-pointer active:scale-95">
-                        <Image
-                          layout="fill"
-                          src={`${INFURA_GATEWAY}/ipfs/${image}`}
-                          draggable={false}
-                        />
-                      </div>
+                      {loaders[index] ? (
+                        <div className="relative w-fit h-fit animate-spin flex items-center justify-center">
+                          <AiOutlineLoading size={15} color="white" />
+                        </div>
+                      ) : (
+                        <div className="relative w-4 h-3 flex items-center justify-center cursor-pointer active:scale-95">
+                          <Image
+                            layout="fill"
+                            src={`${INFURA_GATEWAY}/ipfs/${image}`}
+                            draggable={false}
+                          />
+                        </div>
+                      )}
                       <div
                         className="relative w-fit h-fit items-center justify-center flex cursor-pointer"
                         onClick={() => show[index](publication?.id)}
@@ -112,7 +140,7 @@ const Grant: FunctionComponent<GrantProps> = ({
                   <div className="relative h-full overflow-y-scroll w-full flex items-start justify-start p-1.5"></div>
                   <div className="relative w-60 h-full border border-marron flex items-center justify-center rounded-sm bg-virg">
                     <Image
-                      src={`${INFURA_GATEWAY}/ipfs/${milestoneCovers?.[index]}`}
+                      src={`${INFURA_GATEWAY}/ipfs/${publication?.metadata.marketplace?.image?.raw.uri}`}
                       layout="fill"
                       className="rounded-sm w-full h-full"
                       objectFit="cover"

@@ -1,8 +1,9 @@
 import Bar from "@/components/Common/modules/Bar";
 import { FunctionComponent } from "react";
 import Draggable from "react-draggable";
+import { CommentBoxProps } from "../types/grant.types";
 
-const CommentBox: FunctionComponent = (): JSX.Element => {
+const CommentBox: FunctionComponent<CommentBoxProps> = (): JSX.Element => {
   return (
     <Draggable>
       <div

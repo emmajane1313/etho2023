@@ -1,13 +1,8 @@
+import { CartItem } from "@/components/Checkout/types/checkout.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface CartItemsState {
-  items: {
-    size: string;
-    color: string;
-    amount: number;
-    id: string;
-    level: number;
-  }[];
+  items: CartItem[];
 }
 
 const initialCartItemsState: CartItemsState = {

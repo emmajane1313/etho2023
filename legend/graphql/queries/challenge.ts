@@ -1,7 +1,14 @@
+import { FetchResult } from "@apollo/client";
 import { authClient } from "../../lib/lens/client";
-import { ChallengeDocument, ChallengeRequest } from "../generated";
+import {
+  ChallengeDocument,
+  ChallengeQuery,
+  ChallengeRequest,
+} from "../generated";
 
-export const generateChallenge = (request: ChallengeRequest) => {
+export const generateChallenge = (
+  request: ChallengeRequest
+): Promise<FetchResult<ChallengeQuery>> => {
   return authClient.query({
     query: ChallengeDocument,
     variables: {

@@ -1,10 +1,14 @@
 import { FetchResult } from "@apollo/client";
 import { authClient } from "../../lib/lens/client";
-import { AuthenticateDocument, SignedAuthChallenge } from "../generated";
+import {
+  AuthenticateDocument,
+  AuthenticateMutation,
+  SignedAuthChallenge,
+} from "../generated";
 
 const authenticate = async (
   request: SignedAuthChallenge
-): Promise<FetchResult<any, Record<string, any>, Record<string, any>>> => {
+): Promise<FetchResult<AuthenticateMutation>> => {
   return authClient.mutate({
     mutation: AuthenticateDocument,
     variables: {

@@ -1,11 +1,16 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { Post } from "../../graphql/generated";
 
 export interface PublishedGrantsState {
-  items: any[];
+  items: Post[];
+  apparel: any[];
+  cursor?: string;
 }
 
 const initialPublishedGrantsState: PublishedGrantsState = {
   items: [],
+  apparel: [],
+  cursor: undefined,
 };
 
 export const publishedGrantsSlice = createSlice({
@@ -14,9 +19,11 @@ export const publishedGrantsSlice = createSlice({
   reducers: {
     setPublishedGrants: (
       state: PublishedGrantsState,
-      action: PayloadAction<any[]>
+      { payload: { actionItems, actionApparel, actionCursor } }
     ) => {
-      state.items = action.payload;
+      state.items = actionItems;
+      state.apparel = actionApparel;
+      state.cursor = actionCursor;
     },
   },
 });

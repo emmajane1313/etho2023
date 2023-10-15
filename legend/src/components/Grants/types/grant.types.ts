@@ -1,18 +1,18 @@
 import { AnyAction } from "redux";
-import { ExplorePublication } from "../../../../graphql/generated";
+import { ExplorePublication, Profile } from "../../../../graphql/generated";
 import { Dispatch } from "react";
 import { NextRouter } from "next/router";
 
 export type GrantProps = {
   publication: ExplorePublication;
   imageIndex: number[];
-  milestoneCovers: string[];
   setImageIndex: (e: number[]) => void;
   index: number;
   disputeGrant: (index: number, id: number) => Promise<void>;
   commentGrant: (id: number) => Promise<void>;
   likeGrant: (id: number) => Promise<void>;
   mirrorGrant: (id: number) => Promise<void>;
+  quoteGrant: (id: number) => Promise<void>;
   setCollectChoice: (e: { color: string; size: string }[]) => void;
   collectChoice: {
     color: string;
@@ -28,8 +28,15 @@ export type GrantProps = {
   dispatch: Dispatch<AnyAction>;
   router: NextRouter;
   showComments: (id: string) => Promise<void>;
+  showQuotes: (id: string) => Promise<void>;
   showLikes: (id: string) => Promise<void>;
   showMirrors: (id: string) => Promise<void>;
+  interactionsLoading: {
+    mirror: boolean;
+    comment: boolean;
+    quote: boolean;
+    like: boolean;
+  };
 };
 
 export type CollectItemProps = {
@@ -54,4 +61,25 @@ export type CollectItemProps = {
     description: string;
     amount: number;
   };
+};
+
+export type MirrorBoxProps = {
+  showMoreMirrors: () => Promise<void>;
+  showMoreQuotes: () => Promise<void>;
+  mirrors: Profile[] | undefined;
+  quotes: Profile[] | undefined;
+  grantQuote: string;
+  setGrantQuote: (e: string) => void;
+};
+
+export type CommentBoxProps = {
+  showMoreComments: () => Promise<void>;
+  comments: Profile[] | undefined;
+  grantComment: string;
+  setGrantComment: (e: string) => void;
+};
+
+export type LikeBoxProps = {
+  showMoreLikes: () => Promise<void>;
+  likes: Profile[] | undefined;
 };

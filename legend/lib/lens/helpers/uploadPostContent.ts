@@ -1,17 +1,25 @@
 import { PostInformation } from "@/components/Launch/types/launch.types";
 import { v4 as uuidv4 } from "uuid";
+import {
+  ImageMetadataV3,
+  PublicationMetadataMediaImage,
+} from "../../../graphql/generated";
 
 const uploadPostContent = async (
   postInformation: PostInformation
 ): Promise<string | undefined> => {
-  let newImages: { item: string; type: string; altTag: string }[] = [];
+  let newImages: PublicationMetadataMediaImage[] = [];
   [
     postInformation.coverImage,
     ...postInformation.milestones.map((item) => item.image),
   ]?.forEach((image) => {
     newImages.push({
-      item: "ipfs://" + image,
-      type: "image/png",
+      image: {
+        raw: {
+          uri: "ipfs://" + image,
+        },
+      },
+
       altTag: image,
     });
   });
@@ -37,22 +45,28 @@ const uploadPostContent = async (
     .join("\n\n")}
   `;
 
-  const data = {
-    version: "2.0.0",
-    metadata_id: uuidv4(),
-    description: formattedText,
-    content: formattedText,
-    external_url: "https://www.legend.xyz/",
-    image: newImages[0].item,
-    imageMimeType: "image/png",
-    name: postInformation.title,
-    mainContentFocus: "IMAGE",
-    contentWarning: null,
-    attributes: [],
-    media: newImages,
+  const data: ImageMetadataV3 = {
+    __typename: "ImageMetadataV3",
+    id: uuidv4(),
+    hideFromFeed: false,
     locale: "en",
-    tags: ["legendgrant"],
+    tags: ["legend", "legendgrant"],
     appId: "legend",
+    attachments: newImages,
+    content: formattedText,
+    title: postInformation.title,
+    marketplace: {
+      description: formattedText,
+      externalURL: "legend.xyz",
+      image: {
+        raw: {
+          uri: newImages[0],
+        },
+      },
+      name: postInformation.title,
+    },
+    asset: newImages[0],
+    rawURI: ""
   };
 
   try {

@@ -1,5 +1,5 @@
 import { FetchResult } from "@apollo/client";
-import { authClient } from "../../lib/lens/client";
+import { apolloClient } from "../../lib/lens/client";
 import {
   OnchainPostRequest,
   PostOnchainDocument,
@@ -9,7 +9,7 @@ import {
 const onChainPost = async (
   request: OnchainPostRequest
 ): Promise<FetchResult<PostOnchainMutation>> => {
-  return authClient.mutate({
+  return apolloClient.mutate({
     mutation: PostOnchainDocument,
     variables: {
       request: request,

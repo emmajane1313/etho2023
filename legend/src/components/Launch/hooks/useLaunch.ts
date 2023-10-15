@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { isValid, parse, format } from "date-fns";
 import uploadPostContent from "../../../../lib/lens/helpers/uploadPostContent";
-import onChainPost from "../../../../graphql/mutations/onchainpost";
+import onChainPost from "../../../../graphql/mutations/onchainPost";
 import { useAccount } from "wagmi";
 import { PostInformation } from "../types/launch.types";
 import { ethers } from "ethers";
@@ -276,11 +276,12 @@ const useLaunch = () => {
         },
       });
 
-      if (!data || data.data.publications.items.length === 0) {
+      if (!data || data?.data?.publications.items.length === 0) {
         setGrantId(1);
       } else {
         const id =
-          parseInt(data.data.publications.items[0].id?.split("-")?.[1], 16) + 1;
+          parseInt(data?.data?.publications.items[0].id?.split("-")?.[1], 16) +
+          1;
         setGrantId(id);
         return id;
       }

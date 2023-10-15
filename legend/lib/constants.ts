@@ -59,4 +59,41 @@ export const LEVEL_INFO_ABI: [
   },
 ];
 
-export const GRANT_REGISTER_CONTRACT: `0x${string}` = "0x"
+export const GRANT_REGISTER_CONTRACT: `0x${string}` = "0x";
+export const CURRENCY_ADDRESS: `0x${string}` = "0x";
+
+export const COLLECT_LEVEL_ABI: [
+  {
+    type: string;
+    components: {
+      name: string;
+      type: string;
+      baseType: string;
+      indexed: boolean;
+    }[];
+  }
+] = [
+  {
+    type: "tuple[]",
+    components: [
+      {
+        name: "currency",
+        type: "address",
+        baseType: "address",
+        indexed: false,
+      },
+      {
+        name: "level",
+        type: "uint256",
+        baseType: "uint256",
+        indexed: false,
+      },
+      {
+        name: "encryptedFulfillment",
+        type: "string",
+        baseType: "string",
+        indexed: false,
+      },
+    ],
+  },
+];

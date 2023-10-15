@@ -1,8 +1,9 @@
 import Bar from "@/components/Common/modules/Bar";
 import { FunctionComponent } from "react";
 import Draggable from "react-draggable";
+import { LikeBoxProps } from "../types/grant.types";
 
-const LikeBox: FunctionComponent = (): JSX.Element => {
+const LikeBox: FunctionComponent<LikeBoxProps> = (): JSX.Element => {
   return (
     <Draggable>
       <div

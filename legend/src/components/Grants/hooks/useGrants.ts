@@ -1,108 +1,163 @@
 import { useEffect, useState } from "react";
-import { MILESTONE_COVERS } from "../../../../lib/constants";
-import lodash from "lodash";
+
+import {
+  LimitType,
+  Post,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  PublicationsOrderByType,
+} from "../../../../graphql/generated";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import getPublications from "../../../../graphql/queries/publications";
+import { setPublishedGrants } from "../../../../redux/reducers/publishedGrantsSlice";
+import { setInteractionsCount } from "../../../../redux/reducers/interactionsCountSlice";
 
 const useGrants = () => {
+  const dispatch = useDispatch();
   const [imageIndex, setImageIndex] = useState<number[]>([0]);
-  const [milestoneCovers, setMilestoneCovers] = useState<string[][]>([]);
-  const [reactBox, setReactBox] = useState<{
-    comment: string;
-    like: string;
-    mirror: string;
-  }>({
-    comment: "",
-    like: "",
-    mirror: "",
-  });
   const [collectChoice, setCollectChoice] = useState<
     {
       size: string;
       color: string;
     }[]
   >(Array.from({ length: 7 }, () => ({ size: "", color: "" })));
+  const allPublications = useSelector(
+    (state: RootState) => state.app.publishedGrantsReducer
+  );
+  const interactionsCount = useSelector(
+    (state: RootState) => state.app.interactionsCountReducer
+  );
 
-  const likeGrant = async () => {
+  const handleFetchGrants = async () => {
+    try {
+      const data = await getPublications({
+        limit: LimitType.Fifty,
+        orderBy: PublicationsOrderByType.Latest,
+        where: {
+          publicationTypes: [PublicationType.Post],
+          metadata: {
+            mainContentFocus: [PublicationMetadataMainFocusType.Image],
+            tags: {
+              all: ["legend", "legendgrant"],
+            },
+          },
+        },
+      });
+
+      const arr: Post[] = [...(data?.data?.publications.items || [])] as Post[];
+      let sortedArr = arr.sort(
+        (a: any, b: any) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+      );
+
+      const apparelItems = await handleFetchApparelLevels();
+
+      dispatch(
+        setPublishedGrants({
+          actionItems: sortedArr,
+          actionApparel: apparelItems,
+          actionCursor: data?.data?.publications.pageInfo.next,
+        })
+      );
+      dispatch(
+        setInteractionsCount({
+          actionLikes: sortedArr.map((obj) => obj.stats.reactions),
+          actionMirrors: sortedArr.map((obj) => obj.stats.mirrors),
+          actionQuotes: sortedArr.map((obj) => obj.stats.quotes),
+          actionCollects: sortedArr.map((obj) => obj.stats.countOpenActions),
+          actionComments: sortedArr.map((obj) => obj.stats.comments),
+          actionHasLiked: sortedArr.map((obj) => obj.operations.hasReacted),
+          actionHasMirrored: sortedArr.map((obj) => obj.operations.hasMirrored),
+          actionHasCollected: sortedArr.map((obj) => obj.operations.hasActed),
+        })
+      );
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
+  const handleFetchMoreGrants = async () => {
+    try {
+      if (!allPublications.cursor) return;
+      const data = await getPublications({
+        cursor: allPublications.cursor,
+        limit: LimitType.Fifty,
+        orderBy: PublicationsOrderByType.Latest,
+        where: {
+          publicationTypes: [PublicationType.Post],
+          metadata: {
+            mainContentFocus: [PublicationMetadataMainFocusType.Image],
+            tags: {
+              all: ["legend", "legendgrant"],
+            },
+          },
+        },
+      });
+
+      const arr: Post[] = [...(data?.data?.publications.items || [])] as Post[];
+      let sortedArr = arr.sort(
+        (a: any, b: any) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+      );
+
+      const apparelItems = await handleFetchMoreApparelLevels();
+
+      dispatch(
+        setPublishedGrants({
+          actionItems: [...allPublications.items, ...sortedArr],
+          actionApparel: apparelItems,
+          actionCursor: data?.data?.publications.pageInfo.next,
+        })
+      );
+      dispatch(
+        setInteractionsCount({
+          actionLikes: [
+            ...interactionsCount.likes,
+            ...sortedArr.map((obj) => obj.stats.reactions),
+          ],
+
+          actionMirrors: [
+            ...interactionsCount.mirrors,
+            ...sortedArr.map((obj) => obj.stats.mirrors),
+          ],
+          actionQuotes: [
+            ...interactionsCount.quotes,
+            ...sortedArr.map((obj) => obj.stats.quotes),
+          ],
+          actionCollects: [
+            ...interactionsCount.collects,
+            ...sortedArr.map((obj) => obj.stats.countOpenActions),
+          ],
+          actionComments: [
+            ...interactionsCount.comments,
+            ...sortedArr.map((obj) => obj.stats.comments),
+          ],
+          actionHasLiked: [
+            ...interactionsCount.hasLiked,
+            ...sortedArr.map((obj) => obj.operations.hasReacted),
+          ],
+          actionHasMirrored: [
+            ...interactionsCount.hasMirrored,
+            ...sortedArr.map((obj) => obj.operations.hasMirrored),
+          ],
+          actionHasCollected: [
+            ...interactionsCount.hasCollected,
+            ...sortedArr.map((obj) => obj.operations.hasActed),
+          ],
+        })
+      );
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
+  const handleFetchApparelLevels = async () => {
     try {
     } catch (err: any) {
       console.error(err.message);
     }
   };
 
-  const mirrorGrant = async () => {
-    try {
-    } catch (err: any) {
-      console.error(err.message);
-    }
-  };
-
-  const commentGrant = async () => {
-    try {
-    } catch (err: any) {
-      console.error(err.message);
-    }
-  };
-
-  const disputeGrant = async () => {
-    try {
-    } catch (err: any) {
-      console.error(err.message);
-    }
-  };
-
-  const showComments = async (id: string) => {
-    if (id === reactBox.comment) {
-      setReactBox({
-        ...reactBox,
-        comment: "",
-      });
-      return;
-    } else {
-      setReactBox({
-        ...reactBox,
-        comment: id,
-      });
-    }
-    try {
-    } catch (err: any) {
-      console.error(err.message);
-    }
-  };
-
-  const showLikes = async (id: string) => {
-    if (id === reactBox.like) {
-      setReactBox({
-        ...reactBox,
-        like: "",
-      });
-      return;
-    } else {
-      setReactBox({
-        ...reactBox,
-        like: id,
-      });
-    }
-    if (reactBox.like) {
-      return;
-    }
-    try {
-    } catch (err: any) {
-      console.error(err.message);
-    }
-  };
-
-  const showMirrors = async (id: string) => {
-    if (id === reactBox.mirror) {
-      setReactBox({
-        ...reactBox,
-        mirror: "",
-      });
-      return;
-    } else {
-      setReactBox({
-        ...reactBox,
-        mirror: id,
-      });
-    }
+  const handleFetchMoreApparelLevels = async () => {
     try {
     } catch (err: any) {
       console.error(err.message);
@@ -110,24 +165,15 @@ const useGrants = () => {
   };
 
   useEffect(() => {
-    const shuffled = lodash.shuffle(MILESTONE_COVERS);
-    setMilestoneCovers([shuffled.slice(0, 3)]);
+    handleFetchGrants();
   }, []);
 
   return {
     imageIndex,
     setImageIndex,
-    disputeGrant,
-    commentGrant,
-    likeGrant,
-    mirrorGrant,
     collectChoice,
     setCollectChoice,
-    showComments,
-    showLikes,
-    showMirrors,
-    reactBox,
-    milestoneCovers,
+    handleFetchMoreGrants,
   };
 };
 
